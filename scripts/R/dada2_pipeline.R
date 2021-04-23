@@ -61,26 +61,32 @@ table(nchar(getSequences(seqtab)))
 # Check for chimeric sequences
 seqtab.nochim <-
   removeBimeraDenovo(seqtab,
-                     method = "consensus",
-                     multithread = TRUE,
-                     verbose = TRUE)
+    method = "consensus",
+    multithread = TRUE,
+    verbose = TRUE
+  )
 dim(seqtab.nochim)
 pct_chimeric <- sum(seqtab.nochim) / sum(seqtab)
 
 ######################################################
 # Track read numbers
-getN <- function(x)
+getN <- function(x) {
   sum(getUniques(x))
+}
 track <-
-  cbind(out,
-        sapply(dadaFs, getN),
-        rowSums(seqtab.nochim))
+  cbind(
+    out,
+    sapply(dadaFs, getN),
+    rowSums(seqtab.nochim)
+  )
 # If processing a single sample, remove the sapply calls: e.g. replace sapply(dadaFs, getN) with getN(dadaFs)
 colnames(track) <-
-  c("input",
+  c(
+    "input",
     "filtered",
     "denoisedF",
-    "nonchim")
+    "nonchim"
+  )
 rownames(track) <- sample.names
 head(track)
 
@@ -104,13 +110,15 @@ ids <-
   )
 # ranks of interest
 ranks <-
-  c("domain",
+  c(
+    "domain",
     "phylum",
     "class",
     "order",
     "family",
     "genus",
-    "species")
+    "species"
+  )
 # Convert the output object of class "Taxa" to a matrix analogous to the output from assignTaxonomy
 taxid <- t(sapply(ids, function(x) {
   m <- match(ranks, x$rank)
@@ -118,5 +126,5 @@ taxid <- t(sapply(ids, function(x) {
   taxa[startsWith(taxa, "unclassified_")] <- NA
   taxa
 }))
-colnames(taxid) <-ranks
+colnames(taxid) <- ranks
 rownames(taxid) <- getSequences(seqtab.nochim)
