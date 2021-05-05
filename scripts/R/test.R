@@ -8,4 +8,4 @@ library("plyr"); packageVersion("plyr")
 # just test that the seqs can be found
 args = commandArgs(trailingOnly = TRUE)
 seqs <- args[1]
-list.files(path)
+list.files(seqs)
