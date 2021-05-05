@@ -1,0 +1,11 @@
+name: bds
+channels:
+  - bioconda
+  - defaults
+dependencies:
+  - r-base>=4
+  - r-tidyverse
+  - r-styler
+  - r-lintr
+  - bioconductor-dada2
+  - bioconductor-phyloseq
