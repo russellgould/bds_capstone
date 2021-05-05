@@ -1,5 +1,6 @@
-name: bds
+name: bds_cgrb
 channels:
+  - conda-forge
   - bioconda
   - defaults
 dependencies:
