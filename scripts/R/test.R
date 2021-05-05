@@ -1,5 +1,7 @@
 #!/usr/bin/env Rscript
 
+# this script is just to test whether packages were installed correctly
+
 library("dada2"); packageVersion("dada2")
 library("phyloseq"); packageVersion("phyloseq")
 library("ggplot2"); packageVersion("ggplot2")
