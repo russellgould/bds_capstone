@@ -8,5 +8,6 @@ dependencies:
   - r-tidyverse
   - r-styler
   - r-lintr
+  - r-rcpp
   - bioconductor-dada2
   - bioconductor-phyloseq
