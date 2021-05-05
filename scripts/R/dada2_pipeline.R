@@ -91,40 +91,11 @@ rownames(track) <- sample.names
 head(track)
 
 ######################################################
-# Assign taxonomy
-library(DECIPHER)
-# Create a DNAStringSet from the ASVs
-dna <- DNAStringSet(getSequences(seqtab.nochim))
-
-##** CHANGE TO THE PATH OF YOUR TRAINING SET **##
-load("~/tax/IDTaxa/SILVA_SSU_r132_March2018.RData")
-
-# use all processors
-ids <-
-  IdTaxa(
-    dna,
-    trainingSet,
-    strand = "top",
-    processors = NULL,
-    verbose = FALSE
-  )
-# ranks of interest
-ranks <-
-  c(
-    "domain",
-    "phylum",
-    "class",
-    "order",
-    "family",
-    "genus",
-    "species"
-  )
-# Convert the output object of class "Taxa" to a matrix analogous to the output from assignTaxonomy
-taxid <- t(sapply(ids, function(x) {
-  m <- match(ranks, x$rank)
-  taxa <- x$taxon[m]
-  taxa[startsWith(taxa, "unclassified_")] <- NA
-  taxa
-}))
-colnames(taxid) <- ranks
-rownames(taxid) <- getSequences(seqtab.nochim)
+#### CHECK THREADS HERE
+taxa <- assignTaxonomy(seqtab.nochim, "/home/skillinp/tax/silva_nr99_v138.1_train_set.fa.gz", multithread=TRUE)
+taxa.print <- taxa # Removing sequence rownames for display only
+rownames(taxa.print) <- NULL
+head(taxa.print)
+head(track)
+# CHANGE ME to save image wherever you want to save it
+save.image("/home/skillinp/Dada2PipeImage.R")
