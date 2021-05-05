@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 eval "$('/dfs/Megraw_Lab/software_downloads/conda/bin/conda' 'shell.bash' 'hook')"
-conda activate bds
+conda activate bds_cgrb
 
 scripts_dir=$1
 seqs_dir=$2
