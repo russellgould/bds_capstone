@@ -1,3 +1,14 @@
 #!/usr/bin/env bash
 
-seq_dir=""
+queue="*@!(symbiosis*|galls*)"
+
+scripts_dir=".."
+seqs_dir="/nfs3/PHARM/David_Lab/MB599/2020_2021/group1/SubsetForTrial"
+
+# submit jobscript
+echo "bash dada2.sh $scripts_dir $seqs_dir" |
+    SGE_Array \
+        -p 1 \
+        -m 5G \
+        -q "$queue" \
+        -r sge_logs_dada2
