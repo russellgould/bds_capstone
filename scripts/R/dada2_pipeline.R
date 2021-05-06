@@ -8,6 +8,7 @@ args <- commandArgs(trailingOnly = TRUE)
 input_seqs_path <- file.path(args[1])
 output_path <- file.path(args[2])
 
+dir.create(output_path)
 plots_path <- file.path(output_path, "plots")
 stats_path <- file.path(output_path, "analysis_stats")
 objs_path <- file.path(output_path, "r_objects")
@@ -36,9 +37,9 @@ pdf(file.path(plots_path, "quality_profile.pdf"))
 plotQualityProfile(fnFs[1:2])
 dev.off()
 
-# Place filtered files in filtered/ subdirectory
+# Place filtered files in filtered_samples/ subdirectory
 filtFs <-
-  file.path(input_seqs_path, "filtered", paste0(sample.names, "_F_filt.fastq.gz"))
+  file.path(output_path, "filtered_samples", paste0(sample.names, "_F_filt.fastq.gz"))
 names(filtFs) <- sample.names
 
 ######################################################
