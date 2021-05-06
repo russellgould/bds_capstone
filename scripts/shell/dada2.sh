@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# our lab defines these, but they interfere with conda paths
+# make sure these don't interfere with conda
 unset R_LIBS
 unset R_LIBS_USER
 
