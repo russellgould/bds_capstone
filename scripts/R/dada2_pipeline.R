@@ -104,3 +104,14 @@ colnames(track) <-
   )
 rownames(track) <- sample.names
 write.csv(track, file.path(stats_path, "read_numbers.csv"), quote = FALSE)
+
+######################################################
+# Assign taxonomy
+taxa <- assignTaxonomy(seqtab.nochim, silva_nr99_path, multithread = TRUE)
+
+ps <- phyloseq(
+  otu_table(seqtab.nochim, taxa_are_rows = FALSE),
+  tax_table(taxa)
+)
+
+save(ps, file = file.path(objs_path, "ps.Rdata"))
