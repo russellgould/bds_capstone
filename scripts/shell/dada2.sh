@@ -14,4 +14,4 @@ seqs_dir=$2
 output_dir=$3
 
 # actually call the R script
-"$scripts_dir"/R/test.R "$seqs_dir" "$output_dir"
+"$scripts_dir"/R/dada2_pipeline.R "$seqs_dir" "$output_dir"
