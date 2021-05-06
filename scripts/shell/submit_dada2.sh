@@ -5,7 +5,7 @@
 group1_dir=/nfs3/PHARM/David_Lab/MB599/2020_2021/group1
 
 # where is the code located?
-scripts_dir="$group1_dir"/code/scripts
+scripts_dir=/raid1/home/bpp/gouldru/bds/scripts
 
 # which input dataset are we using?
 seqs_dir="$group1_dir"/SubsetForTrial
