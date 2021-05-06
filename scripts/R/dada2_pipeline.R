@@ -1,25 +1,35 @@
-library(dada2)
+#!/usr/bin/env Rscript
+
+library("dada2")
 # packageVersion("dada2")
 
-path <-
-  "~/large_files/bds" # CHANGE ME to the directory containing the fastq files after unzipping.
-# list.files(path)
+args <- commandArgs(trailingOnly = TRUE)
+
+input_seqs_path <- file.path(args[1])
+plots_path <- file.path(input_seqs_path, "plots")
+stats_path <- file.path(input_seqs_path, "analysis_stats")
+objs_path <- file.path(input_seqs_path, "r_objects")
+dir.create(plots_path)
+dir.create(stats_path)
+dir.create(objs_path)
 
 ######################################################
 # read samples from files
 
 # Forward and reverse fastq filenames have format: SAMPLENAME_R1_001.fastq and SAMPLENAME_R2_001.fastq
 fnFs <-
-  sort(list.files(path, pattern = "_R1_001.fastq", full.names = TRUE))
+  sort(list.files(input_seqs_path, pattern = "_R1_001.fastq", full.names = TRUE))
 # Extract sample names, assuming filenames have format: SAMPLENAME_XXX.fastq
 sample.names <- sapply(strsplit(basename(fnFs), "_"), `[`, 1)
 
 # inspect read quality of forward strand
+pdf(file.path(plots_path, "quality_profile.pdf"))
 plotQualityProfile(fnFs[1:2])
+dev.off()
 
 # Place filtered files in filtered/ subdirectory
 filtFs <-
-  file.path(path, "filtered", paste0(sample.names, "_F_filt.fastq.gz"))
+  file.path(input_seqs_path, "filtered", paste0(sample.names, "_F_filt.fastq.gz"))
 names(filtFs) <- sample.names
 
 ######################################################
@@ -35,27 +45,31 @@ out <- filterAndTrim(
   compress = TRUE,
   multithread = TRUE
 )
-head(out)
+# head(out)
 
 ######################################################
 # Learn errors
 errF <- learnErrors(filtFs, multithread = TRUE)
+
+pdf(file.path(plots_path, "errors.pdf"))
 plotErrors(errF, nominalQ = TRUE)
+dev.off()
 
 ######################################################
 # Apply core inference algorithm
 dadaFs <- dada(filtFs, err = errF, multithread = TRUE)
 
+save(dadaFs, file = file.path(objs_path, "dadaFs.Rdata"))
 # optionally inspect output object
 # dadaFs[[1]]
 
 ######################################################
 # Construct ASV table
 seqtab <- makeSequenceTable(dadaFs)
-dim(seqtab)
+# dim(seqtab)
 
 # Inspect distribution of sequence lengths
-table(nchar(getSequences(seqtab)))
+# table(nchar(getSequences(seqtab)))
 
 ######################################################
 # Check for chimeric sequences
@@ -65,8 +79,9 @@ seqtab.nochim <-
     multithread = TRUE,
     verbose = TRUE
   )
-dim(seqtab.nochim)
+save(seqtab.nochim, file = file.path(objs_path, "seqtab_nochim.Rdata"))
 pct_chimeric <- sum(seqtab.nochim) / sum(seqtab)
+writeLines(sprintf("%.4f", pct_chimeric), file.path(stats_path, "percent_chimeric.txt"))
 
 ######################################################
 # Track read numbers
@@ -88,14 +103,4 @@ colnames(track) <-
     "nonchim"
   )
 rownames(track) <- sample.names
-head(track)
-
-######################################################
-#### CHECK THREADS HERE
-taxa <- assignTaxonomy(seqtab.nochim, "/home/skillinp/tax/silva_nr99_v138.1_train_set.fa.gz", multithread=TRUE)
-taxa.print <- taxa # Removing sequence rownames for display only
-rownames(taxa.print) <- NULL
-head(taxa.print)
-head(track)
-# CHANGE ME to save image wherever you want to save it
-save.image("/home/skillinp/Dada2PipeImage.R")
+write.csv(track, file.path(stats_path, "read_numbers.csv"), quote = FALSE)
