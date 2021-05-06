@@ -117,6 +117,8 @@ write.csv(track, file.path(stats_path, "read_numbers.csv"), quote = FALSE)
 
 ######################################################
 # Assign taxonomy
+library(phyloseq)
+
 taxa <- assignTaxonomy(seqtab.nochim, silva_nr99_path, multithread = TRUE)
 
 ps <- phyloseq(
