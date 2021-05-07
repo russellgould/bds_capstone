@@ -30,7 +30,7 @@ if(!file.exists(silva_nr99_path)){
 fnFs <-
   sort(list.files(input_seqs_path, pattern = "_R1_001.fastq", full.names = TRUE))
 # Extract sample names, assuming filenames have format: SAMPLENAME_XXX.fastq
-sample.names <- sapply(strsplit(basename(fnFs), "_"), `[`, 1)
+sample.names <- sapply(strsplit(basename(fnFs), "-"), `[`, 1)
 
 # inspect read quality of forward strand
 pdf(file.path(plots_path, "quality_profile.pdf"))
