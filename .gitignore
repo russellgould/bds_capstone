@@ -21,6 +21,7 @@ reference_output
 *.csv
 archived_runs
 archived_logs
+assignments
 
 ################################################################
 # Gitignores from https://github.com/github/gitignore
