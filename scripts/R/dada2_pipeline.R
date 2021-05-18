@@ -47,7 +47,6 @@ names(filtFs) <- sample.names
 out <- filterAndTrim(
   fnFs,
   filtFs,
-  truncLen = 210,
   maxN = 0,
   maxEE = 2,
   truncQ = 2,
