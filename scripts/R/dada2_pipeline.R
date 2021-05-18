@@ -1,6 +1,7 @@
 #!/usr/bin/env Rscript
 
 library("dada2")
+library("ggplot2")
 # packageVersion("dada2")
 
 args <- commandArgs(trailingOnly = TRUE)
@@ -32,10 +33,13 @@ fnFs <-
 # Extract sample names, assuming filenames have format: SAMPLENAME_XXX.fastq
 sample.names <- sapply(strsplit(basename(fnFs), "-"), `[`, 1)
 
-# inspect read quality of forward strand
-pdf(file.path(plots_path, "quality_profile.pdf"))
-plotQualityProfile(fnFs[1:2])
-dev.off()
+# save plots of sample quality for all samples
+quality_plots_path <- file.path(plots_path, "qualities")
+dir.create(quality_plots_path)
+for (i in 1:length(fnFs)) {
+  plotQualityProfile(fnFs[i])
+  ggsave(file.path(quality_plots_path, paste(sample.names[i], ".pdf", sep = "")))
+}
 
 # Place filtered files in filtered_samples/ subdirectory
 filtFs <-
