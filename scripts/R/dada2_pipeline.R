@@ -58,7 +58,7 @@ out <- filterAndTrim(
   compress = TRUE,
   multithread = TRUE
 )
-write.table(out, file.path(stats_path, "filter_numbers.tsv"), quote = FALSE, sep="\t")
+write.table(out, file.path(stats_path, "filter_numbers.tsv"), quote = FALSE, sep = "\t")
 
 ######################################################
 # Learn errors
@@ -116,7 +116,7 @@ colnames(track) <-
     "nonchim"
   )
 rownames(track) <- sample.names
-write.csv(track, file.path(stats_path, "all_steps_numbers.tsv"), quote = FALSE, sep = "\t")
+write.table(track, file.path(stats_path, "all_steps_numbers.tsv"), quote = FALSE, sep = "\t")
 
 ######################################################
 # Assign taxonomy
