@@ -2,7 +2,7 @@
 
 library("phyloseq")
 library("Biostrings")
-library("ggplot2")
+library("dada2")
 
 theme_set(theme_bw())
 
