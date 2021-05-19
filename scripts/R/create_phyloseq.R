@@ -33,7 +33,7 @@ taxa <-
 ps <- phyloseq(
   otu_table(seqtab.nochim, taxa_are_rows = FALSE),
   tax_table(taxa),
-  sample_data(samp.data)
+  sample_data(samp_data)
 )
 
 # rename ASVs to have a short label and save sequences in ps object
