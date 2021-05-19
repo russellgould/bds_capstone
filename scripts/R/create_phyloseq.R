@@ -4,8 +4,6 @@ library("phyloseq")
 library("Biostrings")
 library("dada2")
 
-theme_set(theme_bw())
-
 args <- commandArgs(trailingOnly = TRUE)
 
 # NEED INPUT
