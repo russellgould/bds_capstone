@@ -17,13 +17,6 @@ dir.create(plots_path)
 dir.create(stats_path)
 dir.create(objs_path)
 
-
-silva_nr99_path <- "/nfs3/PHARM/David_Lab/MB599/2020_2021/group1/tax/silva_nr99_v138.1_train_set.fa.gz"
-
-if(!file.exists(silva_nr99_path)){
-  stop("Check that the silva_nr99_v138.1_train_set.fa.gz path is correct!")
-}
-
 ######################################################
 # read samples from files
 
@@ -117,16 +110,3 @@ colnames(track) <-
   )
 rownames(track) <- sample.names
 write.table(track, file.path(stats_path, "all_steps_numbers.tsv"), quote = FALSE, sep = "\t")
-
-######################################################
-# Assign taxonomy
-library(phyloseq)
-
-taxa <- assignTaxonomy(seqtab.nochim, silva_nr99_path, multithread = TRUE)
-
-ps <- phyloseq(
-  otu_table(seqtab.nochim, taxa_are_rows = FALSE),
-  tax_table(taxa)
-)
-
-save(ps, file = file.path(objs_path, "ps.Rdata"))
