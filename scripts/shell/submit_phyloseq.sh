@@ -28,7 +28,7 @@ queue="*@!(symbiosis*|galls*)"
 #   -r is where sge saves log files (stderr, stdout)
 echo "bash create_phyloseq.sh $scripts_dir $silva_dir $r_objs_dir" "$sample_data" |
     SGE_Array \
-        -P 1 \
+        -P 10 \
         -m 50G \
         -q "$queue" \
         -r sge_logs_phyloseq
