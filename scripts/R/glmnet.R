@@ -6,7 +6,10 @@ library(caret)
 library(glmnet)
 library(phyloseq)
 
+set.seed(8675309)
+
 args <- commandArgs(trailingOnly = TRUE)
+# args <- c("~/large_files/bds/phyloseq/ps.Rdata", "~/large_files/bds")
 
 # input phyloseq object
 ps_object_path <- file.path(args[1])
@@ -43,11 +46,11 @@ inTraining <- createDataPartition(data$depth, p = .75, list = FALSE)
 data_train <- data[inTraining, ]
 data_test <- data[-inTraining, ]
 
-save(data_test, data_test_path)
+save(data_test, file = data_test_path)
 
 # create x and y for glm
 x_train <- data_train[, -1]
 y_train <- data_train[, 1]
 fit <- glmnet(x_train, y_train) # can add more parameters to make more specific to this dataset
 
-save(fit, fit_object_path)
+save(fit, file = fit_object_path)
