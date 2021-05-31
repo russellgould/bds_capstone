@@ -24,4 +24,4 @@ echo "bash glmnet.sh $scripts_dir $ps_obj_dir $group1_dir" |
         -P 4 \
         -m 500G \
         -q "$queue" \
-        -r sge_logs_dada2
+        -r sge_logs_glmnet
