@@ -14,6 +14,7 @@ Icon?
 .sge_array_jobnums
 *.csv
 notebooks
+assignments
 
 ################################################################
 # Gitignores from https://github.com/github/gitignore
