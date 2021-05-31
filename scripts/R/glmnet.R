@@ -4,6 +4,7 @@ library(dplyr)
 library(randomForest)
 library(caret)
 library(glmnet)
+library(phyloseq)
 
 args <- commandArgs(trailingOnly = TRUE)
 
