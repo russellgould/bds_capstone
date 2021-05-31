@@ -11,17 +11,10 @@ Icon?
 .snakemake
 
 # General
-tools
-untracked
-get_makefile_dag.sh
-data
-pipeline_output_*
-reference_output
 .sge_array_jobnums
 *.csv
-archived_runs
-archived_logs
-assignments
+*.pdf
+*.png
 
 ################################################################
 # Gitignores from https://github.com/github/gitignore
