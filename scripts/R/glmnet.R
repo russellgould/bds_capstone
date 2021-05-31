@@ -12,7 +12,6 @@ ps_object_path <- file.path(args[1])
 
 # where to save glmnet stuff
 output_path <- file.path(args[2])
-dir.create(output_path)
 
 objects_output_path <- file.path(output_path, "glmnet_output")
 dir.create(objects_output_path)

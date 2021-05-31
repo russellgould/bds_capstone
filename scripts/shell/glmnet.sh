@@ -10,8 +10,8 @@ conda activate bds_cgrb
 
 # variables taken as input from submission script
 scripts_dir=$1
-ps_obj_dir=$2
+ps_obj_pth=$2
 output_dir=$3
 
 # actually call the R script
-"$scripts_dir"/R/glmnet.R "$ps_obj_dir" "$output_dir"
+"$scripts_dir"/R/glmnet.R "$ps_obj_pth" "$output_dir"
