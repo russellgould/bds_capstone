@@ -13,8 +13,7 @@ Icon?
 # General
 .sge_array_jobnums
 *.csv
-*.pdf
-*.png
+notebooks
 
 ################################################################
 # Gitignores from https://github.com/github/gitignore
