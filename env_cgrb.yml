@@ -6,8 +6,8 @@ channels:
 dependencies:
   - r-base>=4
   - r-tidyverse
-  - r-styler
-  - r-lintr
-  - r-rcpp
+  - r-randomforest
+  - r-glmnet
+  - r-caret
   - bioconductor-dada2
   - bioconductor-phyloseq
